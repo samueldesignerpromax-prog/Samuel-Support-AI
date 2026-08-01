@@ -1,19 +1,11 @@
 services:
   - type: web
-    name: support-simple-backend
+    name: support-simple
     env: node
-    buildCommand: cd backend && npm install
+    buildCommand: |
+      cd frontend && npm install && npm run build
+      cd ../backend && npm install
     startCommand: cd backend && npm start
     envVars:
       - key: PORT
         value: 10000
-
-  - type: static
-    name: support-simple-frontend
-    env: static
-    buildCommand: cd frontend && npm install && npm run build
-    staticPublishPath: frontend/dist
-    routes:
-      - type: rewrite
-        source: /*
-        destination: /index.html
